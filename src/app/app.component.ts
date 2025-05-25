@@ -49,15 +49,14 @@ import { SelectionService } from './services/selection.service';
   `,
   styles: [`
     .app-container {
-      max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem;
+      padding: 1rem;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
     .app-header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
 
     .app-header h1 {
@@ -72,9 +71,9 @@ import { SelectionService } from './services/selection.service';
 
     .box-grid { 
       display: grid; 
-      grid-template-columns: repeat(5, 1fr); 
+      grid-template-columns: repeat(10, 1fr); 
       gap: 1rem; 
-      margin-bottom: 2rem; 
+      margin-bottom: 1rem; 
     }
 
     @media (max-width: 768px) {
