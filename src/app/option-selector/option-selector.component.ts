@@ -1,7 +1,7 @@
-import { AsyncPipe, CommonModule, NgFor, TitleCasePipe } from "@angular/common";
+import { AsyncPipe, CommonModule, TitleCasePipe } from "@angular/common";
 import { SelectionService } from "../services/selection.service";
 import { Category, Option } from "../models/option.model";
-import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { map } from "rxjs/operators";
 import { combineLatest, Observable } from "rxjs";
 
@@ -46,9 +46,9 @@ interface SelectionState {
     .selector-container {
       background: #fff;
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: 1rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-top: 2rem;
+     
     }
 
     .selector-header {

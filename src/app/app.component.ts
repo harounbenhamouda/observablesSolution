@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { BoxComponent } from './box/box.component';
 import { OptionSelectorComponent } from './option-selector/option-selector.component';
 import { Option } from './models/option.model';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { SelectionService } from './services/selection.service';
 @Component({
   selector: 'app-root',
@@ -21,8 +21,6 @@ import { SelectionService } from './services/selection.service';
         @for (i of boxes; track i) {
           <app-box
             [index]="i"
-            [option]="(selectedOptions$ | async)?.[i] ?? null"
-            [selected]="i === (selectedIndex$ | async)"
           ></app-box>
         }
       </div>
@@ -30,7 +28,7 @@ import { SelectionService } from './services/selection.service';
       <div class="footer">
         <div class="total-section">
           <span class="total-label">Total Value:</span>
-          <span class="total-value">{{ totalValue$ | async }}</span>
+          <span class="total-value">{{ totalValue$ | async  |number: '1.1-1'}}</span>
         </div>
         <button 
           class="clear-button" 

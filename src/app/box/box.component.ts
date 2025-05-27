@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { SelectionService } from '../services/selection.service';
 import { Option } from '../models/option.model';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-box',
@@ -10,10 +11,11 @@ import { Option } from '../models/option.model';
   template: `
     <div
       class="box"
-      [class.selected]="selected"
+      [class.selected]="selected$ | async"
       (click)="handleBoxClick()"
     >
-      @if (option; as selectedOption) {
+       @let selectedOption = option$ | async;
+      @if (selectedOption) {
         <div class="option-content">
           <span class="option-label">{{ selectedOption.label }}</span>
           <br>
@@ -81,13 +83,21 @@ import { Option } from '../models/option.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoxComponent {
-  @Input() index: number = 0;
-  @Input() option: Option | null = null;
-  @Input() selected = false;
+  @Input() index = 0;
 
-  constructor(private selectionService: SelectionService) {}
+  readonly option$: Observable<Option | null>;
+  readonly selected$: Observable<boolean>;
 
-  public handleBoxClick() {
+  constructor(private selectionService: SelectionService) {
+    this.option$ = this.selectionService.selectedOptions$.pipe(
+      map(options => options[this.index] ?? null)
+    );
+
+    this.selected$ = this.selectionService.selectedIndex$.pipe(
+      map(selectedIndex => selectedIndex === this.index)
+    );
+  }
+   protected handleBoxClick() {
     this.selectionService.selectBox(this.index);
   }
 }
